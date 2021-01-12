@@ -5,13 +5,31 @@
       Description="Broadcasting acquired video through OpenIGTLink"/>
     <Device Id="VideoDevice"
       Type="ClariusOEM"
+
+      ProbeType="C3HD"
+      ProbeSerialNumber="C3HD052012A0836"
+      PathToSecKey="ABCD"
+      ConnectionType="DIRECT"
       IpAddress = "192.168.1.1"
       TcpPort = "5828"
+      WifiSSID="ClariusTestNetwork"
+      WifiPassword="ClariusOEM"
+      DepthMm="100"
+      DynamicRange="50"
+      AutoGainEnabled="FALSE"
+      GainPercent="80"
+      ColorGainPercent="80"
+      ColorPulseRepFreqKHz="10"
+      ImuEnabled="TRUE"
+      ImuWriteToFile="FALSE"
+      ImuOutputFileName = "ImuOutput.csv"
+
+      TimeGainCompensation="30 30 30"
       FrameWidth = "640"
       FrameHeight = "480"
-      ImuEnabled = "TRUE"
-      ImuOutputFileName = "ImuOutput.csv"
-      WriteImagesToDisk = "FALSE">
+      WriteImagesToDisk = "FALSE"
+      EnableButtonPresses = "TRUE"
+      >
       <DataSources>
         <DataSource Type="Video" Id="Video" PortName="B" PortUsImageOrientation="UN"/>
       </DataSources>
@@ -19,6 +37,7 @@
         <OutputChannel Id="VideoStream" VideoDataSourceId="Video" />
       </OutputChannels>
     </Device>
+
     <Device
       Id="CaptureDevice"
       Type="VirtualCapture"
@@ -30,7 +49,9 @@
         <InputChannel Id="VideoStream" />
       </InputChannels>
     </Device>
+
   </DataCollection>
+
   <CoordinateDefinitions>
     <Transform From="Image" To="Reference"
       Matrix="
@@ -39,6 +60,7 @@
       0.0 0.0 0.2 0.0
       0 0 0 1" />
   </CoordinateDefinitions>
+
   <PlusOpenIGTLinkServer
     MaxNumberOfIgtlMessagesToSend="1"
     MaxTimeSpentWithProcessingMs="50"
